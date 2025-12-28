@@ -57,16 +57,17 @@ const PeriodTracker: React.FC = () => {
       {prediction && (
         <div className="mt-4 space-y-2">
           <p>
-            <strong>Next Period:</strong> {prediction.nextPeriod.toDateString()}
+            <strong>Next Period:</strong>{" "}
+            {prediction?.nextPeriod?.toDateString?.() || ""}
           </p>
           <p>
             <strong>Ovulation Date:</strong>{" "}
-            {prediction.ovulationDate.toDateString()}
+            {prediction?.ovulationDate?.toDateString?.() || ""}
           </p>
           <p>
             <strong>Fertile Window:</strong>{" "}
-            {prediction.fertileWindowStart.toDateString()} -{" "}
-            {prediction.fertileWindowEnd.toDateString()}
+            {prediction?.fertileWindowStart?.toDateString?.() || ""} -{" "}
+            {prediction?.fertileWindowEnd?.toDateString?.() || ""}
           </p>
         </div>
       )}
