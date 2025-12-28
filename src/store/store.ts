@@ -9,8 +9,8 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  PersistConfig,
 } from "redux-persist";
-import type { PersistConfig } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { rootReducer } from "./root-reducer";
 
