@@ -11,24 +11,24 @@ import {
   REGISTER,
   PersistConfig,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import { rootReducer } from "./root-reducer";
+import storageModule from "redux-persist/lib/storage";
+//@ts-ignore
+const storage = storageModule.default;
 
+console.log({ storage });
 const persistConfig: PersistConfig<RootState> = {
-  key: "creative_ai_gilead",
+  key: "root",
   storage,
-  whitelist: ["landing", "componentGeneration", "projectDetails"], // Slices to persist
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Root store configuration
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Ignore redux-persist actions
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat([]),
