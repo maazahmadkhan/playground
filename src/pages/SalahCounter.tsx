@@ -26,10 +26,12 @@ const SalahCounter = () => {
               variant="outline"
               onClick={() => setCountFunc(count - STEP)}
             >
-              − {STEP}
+              Decrement
             </Button>
 
-            <Button onClick={() => setCountFunc(count + STEP)}>+ {STEP}</Button>
+            <Button onClick={() => setCountFunc(count + STEP)}>
+              Increment
+            </Button>
           </div>
         </CardContent>
       </Card>
