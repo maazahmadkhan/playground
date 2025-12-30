@@ -10,6 +10,11 @@ const Home = () => {
       description: "Track your menstrual cycle and fertile window.",
       route: "/period-tracker",
     },
+    {
+      title: "Salah Counter",
+      description: "Track your pending salah.",
+      route: "/salah-counters",
+    },
   ];
 
   return (
