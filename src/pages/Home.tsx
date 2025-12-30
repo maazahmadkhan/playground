@@ -13,7 +13,7 @@ const Home = () => {
     {
       title: "Salah Counter",
       description: "Track your pending salah.",
-      route: "/salah-counters",
+      route: "/salah-counter",
     },
   ];
 

@@ -16,10 +16,10 @@ import storageModule from "redux-persist/lib/storage";
 //@ts-ignore
 const storage = storageModule.default;
 
-console.log({ storage });
 const persistConfig: PersistConfig<RootState> = {
   key: "root",
   storage,
+  whitelist: [],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
