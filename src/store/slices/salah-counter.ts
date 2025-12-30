@@ -1,6 +1,5 @@
 import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { PeriodPrediction } from "@/utils/periodCalculator";
 
 type SalahCounterState = {
   count: number;
