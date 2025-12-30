@@ -1,9 +1,9 @@
 import { toast } from "sonner";
 
 const appKey = "tzonzvc7";
-const key = "count";
+const key = "groceries";
 
-export const getCountApi = () => {
+export const getGroceriesApi = () => {
   return fetch(
     `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${appKey}/${key}`
   )
@@ -13,9 +13,9 @@ export const getCountApi = () => {
     });
 };
 
-export const setCountApi = (count: number) => {
+export const setGroceriesApi = (todos: string) => {
   fetch(
-    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/${key}/${count}`,
+    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/${key}/${todos}`,
     {
       method: "POST",
     }

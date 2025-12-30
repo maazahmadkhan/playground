@@ -15,6 +15,16 @@ const Home = () => {
       description: "Track your pending salah.",
       route: "/salah-counter",
     },
+    {
+      title: "Todo",
+      description: "Daily tasks",
+      route: "/todo",
+    },
+    {
+      title: "Groceries",
+      description: "Daily purchases",
+      route: "/groceries",
+    },
   ];
 
   return (
