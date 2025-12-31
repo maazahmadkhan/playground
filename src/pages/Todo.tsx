@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useEffectOnce } from "@/hooks/use-effect-once";
-import { getTodosApi, setTodosApi } from "@/lib/db/todos";
+import { getTodosApi, setTodosApi } from "@/db/todos";
 
 interface Todo {
   id: number;

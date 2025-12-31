@@ -14,15 +14,23 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useEffectOnce } from "@/hooks/use-effect-once";
-import { getGroceriesApi, setGroceriesApi } from "@/lib/db/groceries";
+import { getGroceriesApi, setGroceriesApi, keys } from "@/db/groceries";
+import { Spinner } from "@/components/ui/spinner";
 
 const GroceryList = () => {
+  const [loading, setLoading] = useState(false);
   useEffectOnce(() => {
     const onMount = async () => {
-      const res: string = await getGroceriesApi();
+      setLoading(true);
+      const firstKey = keys[0];
+      const res = await getGroceriesApi(firstKey);
       if (res) {
         groceriesState[1](res.split(","));
       }
+      setLoading(false);
+      await Promise.all(
+        keys.filter((_, i) => i > 0).map((key) => getGroceriesApi(key))
+      );
     };
     onMount();
   });
@@ -58,7 +66,7 @@ const GroceryList = () => {
   };
 
   const editGrocery = (grocery: string) => {
-    const newText = prompt("Edit grocery:");
+    const newText = prompt("Edit grocery:", grocery);
     if (newText !== null) {
       setGroceries(groceries.map((g) => (g === grocery ? newText : g)));
     }
@@ -84,55 +92,69 @@ const GroceryList = () => {
 
       <ul className="space-y-2">
         <AnimatePresence>
-          {groceries.map((grocery) => (
-            <motion.li
-              key={grocery}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              className="flex items-center justify-between p-2 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition"
-            >
-              <div className="flex items-center gap-2">
-                <span className="break-all">{grocery}</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => editGrocery(grocery)}
+          {loading ? (
+            <div className="flex items-center justify-center w-full h-100">
+              <Spinner className="size-10" />
+            </div>
+          ) : (
+            <>
+              {groceries.map((grocery) => (
+                <motion.li
+                  key={grocery}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="flex items-center justify-between p-2 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition"
                 >
-                  <Edit2 size={16} />
-                </Button>
-                <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                  <AlertDialogTrigger asChild>
+                  <div className="flex items-center gap-2">
+                    <span className="break-all">{grocery}</span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => confirmDelete(grocery)}
+                      onClick={() => editGrocery(grocery)}
                     >
-                      <Trash2 size={16} />
+                      <Edit2 size={16} />
                     </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        Are you sure you want to delete:{" "}
-                        <strong>{groceryToDelete}</strong>?
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <div className="flex justify-end gap-2 mt-4">
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={deleteGrocery}>
-                        Delete
-                      </AlertDialogAction>
-                    </div>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </div>
-            </motion.li>
-          ))}
+                    <AlertDialog
+                      open={isDialogOpen}
+                      onOpenChange={setIsDialogOpen}
+                    >
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => confirmDelete(grocery)}
+                        >
+                          <Trash2 size={16} />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Are you sure you want to delete:{" "}
+                            <strong className="w-20 whitespace-nowrap text-ellipsis overflow-hidden">
+                              {groceryToDelete}
+                            </strong>
+                            ?
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <div className="flex justify-end gap-2 mt-4">
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={deleteGrocery}>
+                            Delete
+                          </AlertDialogAction>
+                        </div>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
+                </motion.li>
+              ))}
+            </>
+          )}
         </AnimatePresence>
       </ul>
       <AnimatePresence>

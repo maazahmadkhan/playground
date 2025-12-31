@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { useEffectOnce } from "@/hooks/use-effect-once";
-import { getCountApi, setCountApi } from "@/lib/db/salah-counter";
+import { getCountApi, setCountApi } from "@/db/salah-counter";
 import { selectCount, setCount } from "@/store/slices/salah-counter";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

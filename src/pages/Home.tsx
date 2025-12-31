@@ -25,6 +25,11 @@ const Home = () => {
       description: "Daily purchases",
       route: "/groceries",
     },
+    {
+      title: "Chat",
+      description: "Secret messages",
+      route: "/chat",
+    },
   ];
 
   return (
