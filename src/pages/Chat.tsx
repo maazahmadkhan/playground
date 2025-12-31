@@ -38,7 +38,10 @@ const Chat = () => {
     setMessageLoading(true);
     const msg = await getMessageApi(password);
     const sentMessage = await getMessageApi(otherPassword);
-    if (sentMessage !== "empty" && sentMessage) {
+    if (
+      sentMessage &&
+      !["empty", "Welcome to Secure Chat!"].some((e) => sentMessage.includes(e))
+    ) {
       setMaxLength(stringLimit - sentMessage.length);
     }
     setMessageLoading(false);
