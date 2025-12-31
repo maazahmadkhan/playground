@@ -15,10 +15,7 @@ export const validatePassword = async (password: string): Promise<string> => {
 export const sendMessageApi = async (message: string, password: string) => {
   const prevMessages = await getMessageApi(password);
   const newMessage = `${
-    prevMessages &&
-    !["empty", "Welcome to Secure Chat!"].some((e) => prevMessages.includes(e))
-      ? `${prevMessages}}}`
-      : ""
+    isMessage(prevMessages) ? `${prevMessages}}}` : ""
   }${message}`;
   return await fetch(
     `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/message,${password}/${newMessage}`,
@@ -27,7 +24,7 @@ export const sendMessageApi = async (message: string, password: string) => {
     }
   )
     .then((res) => res.json())
-    .then(() => newMessage.length)
+    .then(() => newMessage)
     .catch((err) => {
       toast.error(JSON.stringify(err));
     });
@@ -84,5 +81,11 @@ export const signUp = async (hisPassword: string, herPassword: string) => {
           toast.error(JSON.stringify(err));
         });
     })
+  );
+};
+
+export const isMessage = (msg?: string | null | void): msg is string => {
+  return (
+    !!msg && !["empty", "Welcome to Secure Chat!"].some((e) => msg.includes(e))
   );
 };

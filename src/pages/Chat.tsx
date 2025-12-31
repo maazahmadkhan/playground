@@ -8,6 +8,7 @@ import {
   getMessageApi,
   deleteMessageApi,
   signUp,
+  isMessage,
 } from "../db/chat";
 import { Textarea } from "@/components/ui/textarea";
 import { stringLimit } from "@/db/db";
@@ -33,26 +34,25 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [otherPassword, setOtherPassword] = useState("");
   const [messageLoading, setMessageLoading] = useState(false);
+  const [sentMessage, setSentMessage] = useState("");
+
+  const clearMessage = () => {
+    setMessage("");
+    deleteMessageApi(password);
+  };
 
   const checkMessages = async (otherPassword: string) => {
     setMessageLoading(true);
     const msg = await getMessageApi(password);
     const sentMessage = await getMessageApi(otherPassword);
-    if (
-      sentMessage &&
-      !["empty", "Welcome to Secure Chat!"].some((e) => sentMessage.includes(e))
-    ) {
+    if (isMessage(sentMessage)) {
       setMaxLength(stringLimit - sentMessage.length);
+      setSentMessage(sentMessage);
     }
     setMessageLoading(false);
 
-    if (msg !== "empty" && msg) {
+    if (isMessage(msg)) {
       setMessage(msg);
-
-      setTimeout(async () => {
-        setMessage("");
-        await deleteMessageApi(password);
-      }, 30000);
     }
   };
 
@@ -79,8 +79,13 @@ const Chat = () => {
   const handleSend = async () => {
     if (!input.trim()) return;
     setSendLoading(true);
-    const messageLength = await sendMessageApi(input, otherPassword);
-    setMaxLength((maxLength) => maxLength - (messageLength || 0));
+    const sentMessage = await sendMessageApi(input, otherPassword);
+    if (isMessage(sentMessage)) {
+      clearMessage();
+      setMaxLength((maxLength) => maxLength - sentMessage.length);
+      setSentMessage(sentMessage);
+    }
+
     setSendLoading(false);
     setInput("");
   };
@@ -237,16 +242,30 @@ const Chat = () => {
                 </div>
               ) : (
                 <>
+                  {sentMessage && (
+                    <div>
+                      <div className="rounded-md p-3 text-sm bg-green-300">
+                        {sentMessage.split("}}").map((msg) => {
+                          return (
+                            <div key={msg} className="text-right">
+                              {msg}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                   {message && (
                     <div>
                       <div className="rounded-md bg-secondary p-3 text-sm">
                         {message.split("}}").map((msg) => {
-                          return <div key={msg}>{msg}</div>;
+                          return (
+                            <div key={msg} className="text-left">
+                              {msg}
+                            </div>
+                          );
                         })}
                       </div>
-                      <p className="text-xs text-muted-foreground pt-1 pl-2">
-                        Message auto-deletes 30 seconds after seen
-                      </p>
                     </div>
                   )}
                 </>
