@@ -1,10 +1,10 @@
 import { toast } from "sonner";
-import { appKey } from "./db";
+import { chatAppKey } from "./db";
 import { encodeText, decodeText } from "@/utils/emoji-support";
 
 export const validatePassword = async (password: string): Promise<string> => {
   const otherPassword = await fetch(
-    `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${appKey}/${password}`
+    `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${chatAppKey}/${password}`
   )
     .then((res) => res.json())
     .catch((err) => {
@@ -20,7 +20,7 @@ export const sendMessageApi = async (message: string, password: string) => {
   }${message}`;
   const finalMessage = encodeText(newMessage || "empty");
   return await fetch(
-    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/message,${password}/${finalMessage}`,
+    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${chatAppKey}/message,${password}/${finalMessage}`,
     {
       method: "POST",
     }
@@ -36,7 +36,7 @@ export const getMessageApi = async (
   password: string
 ): Promise<string | null> => {
   return fetch(
-    `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${appKey}/message,${password}`
+    `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${chatAppKey}/message,${password}`
   )
     .then((res) => res.json())
     .then(async (res) => {
@@ -49,7 +49,7 @@ export const getMessageApi = async (
 
 export const deleteMessageApi = async (password: string) => {
   return await fetch(
-    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/message,${password}/empty`,
+    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${chatAppKey}/message,${password}/empty`,
     {
       method: "POST",
     }
@@ -69,7 +69,7 @@ export const signUp = async (hisPassword: string, herPassword: string) => {
       `message,${herPassword}`,
     ].map((password, i) => {
       return fetch(
-        `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/${password}/${
+        `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${chatAppKey}/${password}/${
           i === 0
             ? herPassword
             : i == 1
