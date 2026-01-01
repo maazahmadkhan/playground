@@ -24,6 +24,14 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
+import { Popover } from "@radix-ui/react-popover";
+import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  EmojiPicker,
+  EmojiPickerContent,
+  EmojiPickerFooter,
+  EmojiPickerSearch,
+} from "@/components/ui/emoji-picker";
 
 const Chat = () => {
   const [password, setPassword] = useState("");
@@ -112,10 +120,13 @@ const Chat = () => {
     }
   };
   const [maxLength, setMaxLength] = useState(stringLimit);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div
-      className={`flex relative items-center justify-center min-h-screen ${
+      className={`flex relative ${
+        isAuthed ? "pt-5" : "pt-20"
+      } justify-center h-screen min-h-screen ${
         isAuthed ? `bg-cover bg-center bg-[url('/bg1.jpg')]` : "bg-muted"
       }`}
     >
@@ -194,7 +205,7 @@ const Chat = () => {
           </Dialog>
         </div>
       )}
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md max-h-max">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>Secure Chat</CardTitle>
@@ -289,9 +300,28 @@ const Chat = () => {
                     }}
                   />
 
-                  <p className="text-xs text-muted-foreground text-right">
-                    {input.length}/{maxLength}
-                  </p>
+                  <div className="flex items-center gap-4 justify-between">
+                    <Popover onOpenChange={setIsOpen} open={isOpen}>
+                      <PopoverTrigger asChild>
+                        <Button variant={"ghost"}>😀</Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-fit p-0">
+                        <EmojiPicker
+                          className="h-85.5"
+                          onEmojiSelect={({ emoji }) => {
+                            setInput((input) => input + emoji);
+                          }}
+                        >
+                          <EmojiPickerSearch />
+                          <EmojiPickerContent />
+                          <EmojiPickerFooter />
+                        </EmojiPicker>
+                      </PopoverContent>
+                    </Popover>
+                    <p className="text-xs text-muted-foreground text-right">
+                      {input.length}/{maxLength}
+                    </p>
+                  </div>
                 </div>
                 <Button
                   loading={sendLoading || messageLoading}

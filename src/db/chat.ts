@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import { appKey } from "./db";
+import { encodeText, decodeText } from "@/utils/emoji-support";
 
 export const validatePassword = async (password: string): Promise<string> => {
   const otherPassword = await fetch(
@@ -17,10 +18,9 @@ export const sendMessageApi = async (message: string, password: string) => {
   const newMessage = `${
     isMessage(prevMessages) ? `${prevMessages}}}` : ""
   }${message}`;
+  const finalMessage = encodeText(newMessage || "empty");
   return await fetch(
-    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/message,${password}/${
-      newMessage || "empty"
-    }`,
+    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/message,${password}/${finalMessage}`,
     {
       method: "POST",
     }
@@ -35,14 +35,16 @@ export const sendMessageApi = async (message: string, password: string) => {
 export const getMessageApi = async (
   password: string
 ): Promise<string | null> => {
-  const message = await fetch(
+  return fetch(
     `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${appKey}/message,${password}`
   )
     .then((res) => res.json())
+    .then(async (res) => {
+      return decodeText(res) as any;
+    })
     .catch((err) => {
       toast.error(JSON.stringify(err));
     });
-  return message;
 };
 
 export const deleteMessageApi = async (password: string) => {
