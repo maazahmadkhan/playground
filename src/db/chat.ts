@@ -1,6 +1,9 @@
 import { toast } from "sonner";
 import { chatAppKey } from "./db";
-import { encodeText, decodeText } from "@/utils/emoji-support";
+import {
+  replaceEmojiWithText,
+  replaceTextWithEmoji,
+} from "@/utils/emoji-support";
 
 export const validatePassword = async (password: string): Promise<string> => {
   const otherPassword = await fetch(
@@ -18,7 +21,7 @@ export const sendMessageApi = async (message: string, password: string) => {
   const newMessage = `${
     isMessage(prevMessages) ? `${prevMessages}}}` : ""
   }${message}`;
-  const finalMessage = encodeText(newMessage || "empty");
+  const finalMessage = replaceEmojiWithText(newMessage || "empty");
   return await fetch(
     `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${chatAppKey}/message,${password}/${finalMessage}`,
     {
@@ -40,7 +43,7 @@ export const getMessageApi = async (
   )
     .then((res) => res.json())
     .then(async (res) => {
-      return decodeText(res) as any;
+      return replaceTextWithEmoji(res) as any;
     })
     .catch((err) => {
       toast.error(JSON.stringify(err));

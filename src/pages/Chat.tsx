@@ -256,9 +256,9 @@ const Chat = () => {
                   {sentMessage && (
                     <div>
                       <div className="rounded-md p-3 text-sm bg-green-300">
-                        {sentMessage.split("}}").map((msg) => {
+                        {sentMessage.split("}}").map((msg, i) => {
                           return (
-                            <div key={msg} className="text-right">
+                            <div key={i} className="text-right">
                               {msg}
                             </div>
                           );
@@ -269,9 +269,9 @@ const Chat = () => {
                   {message && (
                     <div>
                       <div className="rounded-md bg-secondary p-3 text-sm">
-                        {message.split("}}").map((msg) => {
+                        {message.split("}}").map((msg, j) => {
                           return (
-                            <div key={msg} className="text-left">
+                            <div key={j} className="text-left">
                               {msg}
                             </div>
                           );
