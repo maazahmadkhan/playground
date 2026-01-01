@@ -18,7 +18,9 @@ export const sendMessageApi = async (message: string, password: string) => {
     isMessage(prevMessages) ? `${prevMessages}}}` : ""
   }${message}`;
   return await fetch(
-    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/message,${password}/${newMessage}`,
+    `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/message,${password}/${
+      newMessage || "empty"
+    }`,
     {
       method: "POST",
     }
