@@ -2,7 +2,10 @@ import { emojiMap, reverseEmojiMap } from "./emoji-map";
 
 export const replaceEmojiWithText = (str: string) => {
   const emojiRegex = new RegExp(Object.keys(reverseEmojiMap).join("|"), "g");
-  return str.replace(emojiRegex, (match) => reverseEmojiMap[match] || match);
+  return str.replace(
+    emojiRegex,
+    (match) => (reverseEmojiMap as any)[match] || match
+  );
 };
 
 export const replaceTextWithEmoji = (str: string) => {
