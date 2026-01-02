@@ -300,24 +300,26 @@ const Chat = () => {
                     }}
                   />
 
-                  <div className="flex items-center gap-4 justify-between">
-                    <Popover onOpenChange={setIsOpen} open={isOpen}>
-                      <PopoverTrigger asChild>
-                        <Button variant={"ghost"}>😀</Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-fit p-0">
-                        <EmojiPicker
-                          className="h-85.5"
-                          onEmojiSelect={({ emoji }) => {
-                            setInput((input) => input + emoji);
-                          }}
-                        >
-                          <EmojiPickerSearch />
-                          <EmojiPickerContent />
-                          <EmojiPickerFooter />
-                        </EmojiPicker>
-                      </PopoverContent>
-                    </Popover>
+                  <div className="md:flex items-center gap-4 justify-between">
+                    <div className="hidden md:block">
+                      <Popover onOpenChange={setIsOpen} open={isOpen}>
+                        <PopoverTrigger asChild>
+                          <Button variant={"ghost"}>😀</Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-fit p-0">
+                          <EmojiPicker
+                            className="h-85.5"
+                            onEmojiSelect={({ emoji }) => {
+                              setInput((input) => input + emoji);
+                            }}
+                          >
+                            <EmojiPickerSearch />
+                            <EmojiPickerContent />
+                            <EmojiPickerFooter />
+                          </EmojiPicker>
+                        </PopoverContent>
+                      </Popover>
+                    </div>
                     <p className="text-xs text-muted-foreground text-right">
                       {input.length}/{maxLength}
                     </p>
