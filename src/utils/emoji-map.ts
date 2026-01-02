@@ -269,19 +269,15 @@ export const reverseEmojiMap = {
   "🌋": "_volcano_",
   "🏝️": "_desert_island_",
   "🏖️": "_beach_with_umbrella_",
-
   "😮‍💨": "_face_exhaling_",
   "🤥": "_lying_face_",
   "🫨": "_shaking_face_",
   "🙂‍↔️": "_head_shaking_horizontally_",
   "🙂‍↕️": "_head_shaking_vertically_",
   "😔": "_pensive_face_",
-
   "🤤": "_drooling_face_",
   "😴": "_sleeping_face_",
-
   "😵‍💫": "_face_with_spiral_eyes_",
-
   "🥸": "_disguised_face_",
   "😎": "_smiling_face_with_sunglasses_",
   "🤓": "_nerd_face_",
@@ -290,20 +286,13 @@ export const reverseEmojiMap = {
   "🫤": "_face_with_diagonal_mouth_",
   "🙁": "_slightly_frowning_face_",
   "☹️": "_frowning_face_",
-
   "🥺": "_pleading_face_",
   "🥹": "_face_holding_back_tears_",
-
   "😖": "_confounded_face_",
-
   "😓": "_downcast_face_with_sweat_",
-
   "🥱": "_yawning_face_",
-
   "🤬": "_face_with_symbols_on_mouth_",
-
   "👽️": "_alien_",
-
   "👾": "_alien_monster_",
   "😺": "_grinning_cat_",
   "😸": "_grinning_cat_with_smiling_eyes_",
@@ -312,7 +301,6 @@ export const reverseEmojiMap = {
   "😼": "_cat_with_wry_smile_",
   "😽": "_kissing_cat_",
   "🙀": "_weary_cat_",
-
   "😿": "_crying_cat_",
   "😾": "_pouting_cat_",
   "🙈": "_see_no_evil_monkey_",
@@ -322,30 +310,18 @@ export const reverseEmojiMap = {
   "💘": "_heart_with_arrow_",
   "💝": "_heart_with_ribbon_",
   "💖": "_sparkling_heart_",
-
+  "💦": "sweat_drops",
   "💗": "_growing_heart_",
-  "💓": "_beating_heart_",
-  "💞": "_revolving_hearts_",
-  "💕": "_two_hearts_",
-  "💟": "_heart_decoration_",
-  "❣️": "_heart_exclamation_",
-  "💔": "_broken_heart_",
-  "❤️‍🔥": "_heart_on_fire_",
-  "❤️‍🩹": "_mending_heart_",
-
-  "❤️": "_red_heart_",
-  "🩷": "_pink_heart_",
-  "🧡": "_orange_heart_",
-  "💛": "_yellow_heart_",
-  "💚": "_green_heart_",
-  "💙": "_blue_heart_",
-  "🩵": "_light_blue_heart_",
-  "💜": "_purple_heart_",
-  "🤎": "_brown_heart_",
-
-  "🖤": "_black_heart_",
-  "🩶": "_grey_heart_",
-  "🤍": "_white_heart_",
+  "😏": "smirking_face",
+  "🥰": "smiling_face_with_hearts",
+  "😜": "winking_face_with_tongue",
+  "🤭": "face_with_hand_over_mouth",
+  "😇": "smiling_face_with_halo",
+  "💕": "two_hearts",
+  "💞": "revolving_hearts",
+  "❤️": "red_heart",
+  "✨": "sparkles",
+  "🌹": "rose",
 };
 
 export const emojiMap = Object.fromEntries(
