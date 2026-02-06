@@ -114,7 +114,7 @@ export default function App() {
         })}
       </div>
       <div
-        className="cursor-pointer mt-8 bg-amber-700 rounded-2xl py-2 px-4"
+        className="cursor-pointer mt-8 bg-amber-700 rounded-2xl py-2 px-4 mb-8"
         onClick={() => {
           alert(
             PRAYERS.map(
