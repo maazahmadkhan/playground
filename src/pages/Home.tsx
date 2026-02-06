@@ -30,6 +30,11 @@ const Home = () => {
       description: "Secret messages",
       route: "/chat",
     },
+    {
+      title: "Qada e Umri",
+      description: "Qada e Umri",
+      route: "/umri",
+    },
   ];
 
   return (

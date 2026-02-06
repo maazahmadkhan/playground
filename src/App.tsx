@@ -9,6 +9,7 @@ const SalahCounter = lazy(() => import("./pages/SalahCounter"));
 const Todo = lazy(() => import("./pages/Todo"));
 const Groceries = lazy(() => import("./pages/Groceries"));
 const Chat = lazy(() => import("./pages/Chat"));
+const Umri = lazy(() => import("./pages/Umri"));
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/todo" element={<Todo />} />
         <Route path="/groceries" element={<Groceries />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/umri" element={<Umri />} />
       </Routes>
     </>
   );
